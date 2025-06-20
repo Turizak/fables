@@ -6,8 +6,29 @@ Python 3.13.5
 
 ## UV Set Up
 
+[Link to Documentation](https://astral.sh/blog/uv)
+
 1. Install                    `curl -LsSf https://astral.sh/uv/install.sh | sh`
 2. Verify install          `uv`
 3. Initialize project    `uv init`
 4. Add Ruff                `uv add ruff`
 5. Verify Ruff install  `uv run ruff check`
+
+## Run Docker
+
+1. Ensure Docker is available in local env and use command `docker compose up -d`
+   - Django app will be available at http://localhost:8000 and PostgreSQL at
+     http://localhost:5433
+     - Note: there is no web interface for Postgres, you can validate it is running using a command like:
+       - `docker compose exec web uv run python manage.py dbshell --help`
+       - `docker compose exec db psql -U fables_user -d fables`
+         - direct connection to the db container
+2. To stop the containers use `docker compose down`
+
+### Run migrations (in separate terminal)
+
+`docker compose exec web uv run python manage.py migrate`
+
+### Create superuser (optional)
+
+`docker compose exec web uv run python manage.py createsuperuser`
