@@ -14,6 +14,10 @@ Python 3.13.5
 4. Add Ruff                `uv add ruff`
 5. Verify Ruff install  `uv run ruff check`
 
+# Virtual Environment
+1. Create virtual environment           `uv venv`
+2. Use virtual environment              `source .venv/bin/activate`
+
 ## Run Docker
 
 1. Ensure Docker is available in local env and use command `docker compose up -d`
