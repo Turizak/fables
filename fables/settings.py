@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-1qtyg&zwgkfsky@*%c_**v$3%wv=0%ygeb)vz5i(rqkvatf9xy"
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-fallback-key-change-me")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,0.0.0.0").split(",")
 
 
 # Application definition
@@ -76,10 +76,10 @@ WSGI_APPLICATION = "fables.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB", "fables"),
-        "USER": os.getenv("POSTGRES_USER", "fables_user"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "fables_password"),
-        "HOST": os.getenv("POSTGRES_HOST", "db"),
+        "NAME": os.getenv("POSTGRES_DB", "your_db_name"),
+        "USER": os.getenv("POSTGRES_USER", "your_username"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "your_password"),
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
         "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }
