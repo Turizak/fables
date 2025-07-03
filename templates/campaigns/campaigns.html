@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Campaigns - Fables{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/campaigns.css' %}" />
+{% endblock %}
+
+{% block content %}
+<h1>Campaigns</h1>
+<p>View and Manage Campaigns</p>
+
+<div class="campaigns-container">
+  <h2>Your Campaigns</h2>
+  {% if campaigns %}
+    <table class="campaigns-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Last Updated</th>
+          <th>Created Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for campaign in campaigns %}
+        <tr>
+          <td>{{ campaign.name }}</td>
+          <td>{{ campaign.start_date|date:"M d, Y H:i" }}</td>
+          <td>
+            {% if campaign.end_date %}{{ campaign.end_date|date:"M d, Y H:i" }}{% else %}Ongoing{% endif %}
+          </td>
+          <td>{{ campaign.last_updated|date:"M d, Y H:i" }}</td>
+          <td>{{ campaign.created_date|date:"M d, Y H:i" }}</td>
+          <td><span class="material-symbols-outlined delete-icon">
+            delete
+            </span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="empty-state">
+      <p>No campaigns found. Create your first campaign to get started!</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

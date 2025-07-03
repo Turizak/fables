@@ -16,15 +16,10 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from django.http import HttpResponse
-
-
-def home(request):
-    return HttpResponse("Welcome to Fables Django App!")
-
+from django.urls import path, include
 
 urlpatterns = [
-    path("", home, name="home"),
+    path("", include('home.urls')),
+    path("campaigns/", include('campaigns.urls')),
     path("admin/", admin.site.urls),
 ]
