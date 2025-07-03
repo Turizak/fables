@@ -15,8 +15,9 @@ Python 3.13.5
 5. Verify Ruff install  `uv run ruff check`
 
 # Virtual Environment
-1. Create virtual environment           `uv venv`
-2. Use virtual environment              `source .venv/bin/activate`
+
+1. Create virtual environment `uv venv`
+2. Use virtual environment `source .venv/bin/activate`
 
 ## Run Docker
 
@@ -36,3 +37,19 @@ Python 3.13.5
 ### Create superuser (optional)
 
 `docker compose exec web uv run python manage.py createsuperuser`
+
+## PGAdmin Docker Setup
+
+1. Ensure Docker container stack is running
+   - Can use `docker-compose down -v` to tear down existing stack
+     - The `-v` flag removes the volumes, so the database will be recreated with the new credentials (from the `.env` file).
+   - Can use `docker-compose up -d` to recreate the stack
+2. Go to http://localhost:5050
+3. Login with `PGADMIN_DEFAULT_EMAIL` | `PGADMIN_DEFAULT_PASSWORD` environment variables
+4. Click add server
+   - Name:         `POSTGRES_DB` environment variable
+   - Hostname:  `POSTGRES_HOST` environment variable
+   - Port:            `POSTGRES_PORT` environment variable
+   - Username: `POSTGRES_USER` environment variable
+   - Password:  `POSTGRES_PASSWORD` environment variable
+     - Toggled on 'Save Password'
