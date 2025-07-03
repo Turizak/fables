@@ -1,0 +1,76 @@
+/* Campaigns page specific styles */
+.campaigns-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.campaigns-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.campaigns-table th,
+.campaigns-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.campaigns-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.campaigns-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.campaigns-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #6c757d;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .campaigns-container {
+    padding: 1rem;
+    margin-top: 0.5rem;
+  }
+  
+  .campaigns-table {
+    font-size: 0.875rem;
+  }
+  
+  .campaigns-table th,
+  .campaigns-table td {
+    padding: 0.5rem 0.25rem;
+  }
+  
+  /* Hide less important columns on mobile */
+  .campaigns-table th:nth-child(4),
+  .campaigns-table td:nth-child(4),
+  .campaigns-table th:nth-child(5),
+  .campaigns-table td:nth-child(5) {
+    display: none;
+  }
+}
