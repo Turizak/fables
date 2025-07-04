@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from datetime import datetime
 
 
@@ -41,3 +42,21 @@ def campaigns(request):
     ]
 
     return render(request, "campaigns/campaigns.html", {"campaigns": mock_campaigns})
+
+
+def create_campaign(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        start_date = request.POST.get("start_date")
+        # end_date = request.POST.get("end_date")
+
+        if not name or not start_date:
+            messages.error(request, "Campaign name and start date are required.")
+            return render(request, "campaigns/create_campaign.html")
+
+        # TODO: Save campaign to database when models are implemented
+        # For now, just show success message and redirect
+        messages.success(request, f"Campaign '{name}' created successfully!")
+        return redirect("campaigns")
+
+    return render(request, "campaigns/create_campaign.html")

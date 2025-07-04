@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Campaign - Fables{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/campaigns.css' %}" />
+{% endblock %}
+
+{% block content %}
+<h1>Create New Campaign</h1>
+<p>Fill in the details to create a new campaign</p>
+
+<div class="campaigns-container">
+  <div class="campaigns-header">
+    <h2>Campaign Details</h2>
+  </div>
+  
+  <form method="post" class="campaign-form">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="name">Campaign Name</label>
+      <input type="text" id="name" name="name" required maxlength="200" placeholder="Enter campaign name">
+    </div>
+    
+    <div class="form-group">
+      <label for="start_date">Start Date</label>
+      <input type="datetime-local" id="start_date" name="start_date" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="end_date">End Date</label>
+      <input type="datetime-local" id="end_date" name="end_date" placeholder="Leave empty for ongoing campaign">
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Create Campaign</button>
+      <a href="{% url 'campaigns' %}" class="btn btn-primary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
