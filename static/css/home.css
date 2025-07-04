@@ -6,6 +6,7 @@
   margin: 2rem -2rem 3rem -2rem;
   border-radius: 16px;
   color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .main-section h1 {
@@ -29,38 +30,6 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border: 2px solid transparent;
-}
-
-.btn-primary {
-  background-color: white;
-  color: #322f35;
-}
-
-.btn-primary:hover {
-  background-color: #f8f9fa;
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  background-color: transparent;
-  color: white;
-  border-color: white;
-}
-
-.btn-secondary:hover {
-  background-color: white;
-  color: #322f35;
-  transform: translateY(-2px);
 }
 
 /* Features section */

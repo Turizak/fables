@@ -8,11 +8,18 @@
 {% endblock %}
 
 {% block content %}
-<h1>Campaigns</h1>
-<p>View and Manage Campaigns</p>
+<div class="campaigns-header">
+  <div>
+    <h1>Campaigns</h1>
+    <p>View and Manage Campaigns</p>
+  </div>
+<a href="{% url 'create_campaign' %}" class="btn btn-primary">Create New Campaign</a>
+</div>
 
 <div class="campaigns-container">
-  <h2>Your Campaigns</h2>
+  <div class="campaigns-header">
+    <h2>Your Campaigns</h2>
+  </div>
   {% if campaigns %}
     <table class="campaigns-table">
       <thead>
@@ -35,9 +42,11 @@
           </td>
           <td>{{ campaign.last_updated|date:"M d, Y H:i" }}</td>
           <td>{{ campaign.created_date|date:"M d, Y H:i" }}</td>
-          <td><span class="material-symbols-outlined delete-icon">
-            delete
-            </span></td>
+          <td>          
+              <span class="material-symbols-outlined delete-icon">
+              delete
+              </span>
+            </td>
         </tr>
         {% endfor %}
       </tbody>
