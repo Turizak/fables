@@ -25,7 +25,7 @@ uv add ruff
 uv run ruff check
 ```
 
-<br><br>
+<br>
 
 # Virtual Environment
 
@@ -37,7 +37,7 @@ uv venv
 source .venv/bin/activate
 ```
 
-<br><br>
+<br>
 
 # Docker Setup for Fables
 
@@ -73,7 +73,7 @@ docker compose -f docker-compose.dev.yml up --build --watch
 ### Option 3: Local Development + Docker Database
 ```bash
 # Run only PostgreSQL in Docker
-docker compose up db
+docker compose up --no-deps db
 
 # Then run Django locally
 uv run python manage.py runserver

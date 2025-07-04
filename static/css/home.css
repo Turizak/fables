@@ -4,9 +4,9 @@
   padding: 3rem 0 4rem 0;
   background: #999aa0;
   margin: 2rem -2rem 3rem -2rem;
-  border-radius: 16px;
+  border-radius: 1rem;
   color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .main-section h1 {
@@ -54,9 +54,9 @@
 .feature-card {
   background: white;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+  border: 0.0625rem solid rgba(0, 0, 0, 0.05);
 }
 
 .feature-card h3 {
@@ -93,7 +93,7 @@
   }
   
   .btn {
-    width: 200px;
+    width: 12.5rem;
   }
   
   .features-grid {
