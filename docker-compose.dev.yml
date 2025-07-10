@@ -9,6 +9,7 @@ services:
     volumes:
       # Mount only source code directories, excluding virtual environments
       - ./fables:/app/fables
+      - ./accounts:/app/accounts
       - ./campaigns:/app/campaigns
       - ./home:/app/home
       - ./templates:/app/templates
@@ -36,6 +37,9 @@ services:
         - action: sync
           path: ./fables
           target: /app/fables
+        - action: sync
+          path: ./accounts
+          target: /app/accounts
         - action: sync
           path: ./campaigns
           target: /app/campaigns
