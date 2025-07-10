@@ -3,70 +3,65 @@
 
 {% block title %}Campaigns - Fables{% endblock %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/campaigns.css' %}" />
-{% endblock %}
-
 {% block content %}
-<div class="campaigns-header">
+<div>
   <div>
     <h1>Campaigns</h1>
     <p>View and Manage Campaigns</p>
   </div>
-<a href="{% url 'create_campaign' %}" class="btn btn-primary">Create New Campaign</a>
+  <a href="{% url 'create_campaign' %}">Create New Campaign</a>
 </div>
 
-<div class="campaigns-container">
-  <div class="campaigns-header">
+<div>
+  <div>
     <h2>Your Campaigns</h2>
   </div>
   {% if campaigns %}
-    <table class="campaigns-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Last Updated</th>
-          <th>Created Date</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for campaign in campaigns %}
-        <tr>
-          <td>{{ campaign.name }}</td>
-          <td>
-            {% if campaign.start_date %}{{ campaign.start_date|date:"M d, Y" }}{% else %}Not Set{% endif %}
-          </td>
-          <td>
-            {% if campaign.start_date and campaign.end_date %}
-              {{ campaign.end_date|date:"M d, Y" }}
-            {% elif campaign.start_date and not campaign.end_date %}
-              Ongoing
-            {% else %}
-              Not Set
-            {% endif %}
-          </td>
-          <td>{{ campaign.last_updated|date:"M d, Y H:i" }}</td>
-          <td>{{ campaign.created_date|date:"M d, Y H:i" }}</td>
-          <td>          
-              <a href="{% url 'delete_campaign' campaign.uuid %}" 
-                 class="delete-link"
-                 onclick="return confirm('Are you sure you want to delete this campaign?');">
-                <span class="material-symbols-outlined delete-icon">
-                delete
-                </span>
-              </a>
-            </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Last Updated</th>
+        <th>Created Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for campaign in campaigns %}
+      <tr>
+        <td>{{ campaign.name }}</td>
+        <td>
+          {% if campaign.start_date %}{{ campaign.start_date|date:"M d, Y" }}{% else %}Not Set{% endif %}
+        </td>
+        <td>
+          {% if campaign.start_date and campaign.end_date %}
+            {{ campaign.end_date|date:"M d, Y" }}
+          {% elif campaign.start_date and not campaign.end_date %}
+            Ongoing
+          {% else %}
+            Not Set
+          {% endif %}
+        </td>
+        <td>{{ campaign.last_updated|date:"M d, Y H:i" }}</td>
+        <td>{{ campaign.created_date|date:"M d, Y H:i" }}</td>
+        <td>
+          <a
+            href="{% url 'delete_campaign' campaign.uuid %}"
+            onclick="return confirm('Are you sure you want to delete this campaign?');"
+          >
+            <span> delete </span>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
   {% else %}
-    <div class="empty-state">
-      <p>No campaigns found. Create your first campaign to get started!</p>
-    </div>
+  <div>
+    <p>No campaigns found. Create your first campaign to get started!</p>
+  </div>
   {% endif %}
 </div>
 {% endblock %}
