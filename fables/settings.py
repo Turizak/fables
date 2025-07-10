@@ -77,12 +77,18 @@ WSGI_APPLICATION = "fables.wsgi.application"
 
 DATABASES = {
     "default": {
+        # "ENGINE": "django.db.backends.postgresql",
+        # "NAME": os.getenv("POSTGRES_DB", "your_db_name"),
+        # "USER": os.getenv("POSTGRES_USER", "your_username"),
+        # "PASSWORD": os.getenv("POSTGRES_PASSWORD", "your_password"),
+        # "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        # "PORT": os.getenv("POSTGRES_PORT", "5432"),
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB", "your_db_name"),
-        "USER": os.getenv("POSTGRES_USER", "your_username"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "your_password"),
-        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
+        "NAME": "fables",
+        "USER": "fables_admin",
+        "PASSWORD": "faffec3e0c3c24f99cbfc43c31d6b5cd",
+        "HOST": "localhost",
+        "PORT": "5433",
     }
 }
 
