@@ -31,8 +31,8 @@ class Campaign(models.Model):
     account_uuid = models.ForeignKey(
         Account, on_delete=models.CASCADE, to_field="uuid", db_column="account_uuid"
     )
-    start_date = models.DateField(null=False)
-    end_date = models.DateField(null=False)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
     last_updated = models.DateTimeField(null=False, auto_now=True)
     created_date = models.DateTimeField(null=False, auto_now_add=True)
     deleted = models.BooleanField(null=False, default=False)
