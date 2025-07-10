@@ -36,16 +36,28 @@
         {% for campaign in campaigns %}
         <tr>
           <td>{{ campaign.name }}</td>
-          <td>{{ campaign.start_date|date:"M d, Y H:i" }}</td>
           <td>
-            {% if campaign.end_date %}{{ campaign.end_date|date:"M d, Y H:i" }}{% else %}Ongoing{% endif %}
+            {% if campaign.start_date %}{{ campaign.start_date|date:"M d, Y" }}{% else %}Not Set{% endif %}
+          </td>
+          <td>
+            {% if campaign.start_date and campaign.end_date %}
+              {{ campaign.end_date|date:"M d, Y" }}
+            {% elif campaign.start_date and not campaign.end_date %}
+              Ongoing
+            {% else %}
+              Not Set
+            {% endif %}
           </td>
           <td>{{ campaign.last_updated|date:"M d, Y H:i" }}</td>
           <td>{{ campaign.created_date|date:"M d, Y H:i" }}</td>
           <td>          
-              <span class="material-symbols-outlined delete-icon">
-              delete
-              </span>
+              <a href="{% url 'delete_campaign' campaign.uuid %}" 
+                 class="delete-link"
+                 onclick="return confirm('Are you sure you want to delete this campaign?');">
+                <span class="material-symbols-outlined delete-icon">
+                delete
+                </span>
+              </a>
             </td>
         </tr>
         {% endfor %}

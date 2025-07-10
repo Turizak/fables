@@ -111,6 +111,21 @@ button.btn {
   font-size: inherit;
 }
 
+/* Disabled button styles */
+button.btn:disabled {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  color: #fff;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+button.btn:disabled:hover {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  opacity: 0.65;
+}
+
 /* Responsive table */
 @media (max-width: 768px) {
   .campaigns-container {

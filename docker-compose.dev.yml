@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build: .
-    command: uv run python manage.py runserver 0.0.0.0:8000
+    command: sh -c "while ! python -c 'import socket; socket.create_connection((\"db\", 5432))' 2>/dev/null; do echo 'Waiting for database...'; sleep 1; done; echo 'Database is ready!'; uv run python manage.py migrate && uv run python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     volumes:
@@ -67,6 +67,8 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4:latest
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
@@ -79,3 +81,4 @@ volumes:
   web_venv:
   web_uv:
   postgres_data:
+  pgadmin_data:
