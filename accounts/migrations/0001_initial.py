@@ -5,25 +5,26 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Account',
+            name="Account",
             fields=[
-                ('index', models.AutoField(primary_key=True, serialize=False)),
-                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, unique=True)),
-                ('username', models.CharField(max_length=100)),
-                ('last_updated', models.DateTimeField(auto_now=True)),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('deleted', models.BooleanField(default=False)),
+                ("index", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "uuid",
+                    models.UUIDField(default=uuid.uuid4, editable=False, unique=True),
+                ),
+                ("username", models.CharField(max_length=100)),
+                ("last_updated", models.DateTimeField(auto_now=True)),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("deleted", models.BooleanField(default=False)),
             ],
             options={
-                'db_table': 'account',
+                "db_table": "account",
             },
         ),
     ]

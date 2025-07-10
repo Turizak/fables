@@ -6,29 +6,39 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('accounts', '0001_initial'),
+        ("accounts", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Campaign',
+            name="Campaign",
             fields=[
-                ('index', models.AutoField(primary_key=True, serialize=False)),
-                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, unique=True)),
-                ('name', models.CharField(max_length=100)),
-                ('start_date', models.DateField(blank=True, null=True)),
-                ('end_date', models.DateField(blank=True, null=True)),
-                ('last_updated', models.DateTimeField(auto_now=True)),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('deleted', models.BooleanField(default=False)),
-                ('account_uuid', models.ForeignKey(db_column='account_uuid', on_delete=django.db.models.deletion.CASCADE, to='accounts.account', to_field='uuid')),
+                ("index", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "uuid",
+                    models.UUIDField(default=uuid.uuid4, editable=False, unique=True),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("start_date", models.DateField(blank=True, null=True)),
+                ("end_date", models.DateField(blank=True, null=True)),
+                ("last_updated", models.DateTimeField(auto_now=True)),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("deleted", models.BooleanField(default=False)),
+                (
+                    "account_uuid",
+                    models.ForeignKey(
+                        db_column="account_uuid",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="accounts.account",
+                        to_field="uuid",
+                    ),
+                ),
             ],
             options={
-                'db_table': 'campaign',
+                "db_table": "campaign",
             },
         ),
     ]
