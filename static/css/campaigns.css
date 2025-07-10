@@ -113,16 +113,16 @@ button.btn {
 
 /* Disabled button styles */
 button.btn:disabled {
-  background-color: #6c757d !important;
-  border-color: #6c757d !important;
+  background-color: #6c757d;
+  border-color: #6c757d;
   color: #fff;
   opacity: 0.65;
   cursor: not-allowed;
 }
 
 button.btn:disabled:hover {
-  background-color: #6c757d !important;
-  border-color: #6c757d !important;
+  background-color: #6c757d;
+  border-color: #6c757d;
   opacity: 0.65;
 }
 
