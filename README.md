@@ -42,7 +42,9 @@ source .venv/bin/activate
 # Docker Setup for Fables
 
 ## Problem
+
 When running Docker containers that share volumes with your local filesystem, conflicts arise between:
+
 - Python bytecode files (`__pycache__`, `.pyc` files)
 - Virtual environment files (`.venv`)
 - UV lock files and compiled dependencies
@@ -50,6 +52,7 @@ When running Docker containers that share volumes with your local filesystem, co
 ## Solution
 
 ### Option 1: Standard Docker Compose (Recommended)
+
 ```bash
 # Build and run with PostgreSQL database
 docker compose up --build -d
@@ -62,6 +65,7 @@ docker compose down -v
 ```
 
 ### Option 2: Development-Only Container
+
 ```bash
 # Run development container with selective volume mounting
 docker compose -f docker-compose.dev.yml up --build -d
@@ -71,6 +75,7 @@ docker compose -f docker-compose.dev.yml up --build --watch
 ```
 
 ### Option 3: Local Development + Docker Database
+
 ```bash
 # Run only PostgreSQL in Docker
 docker compose up --no-deps db
@@ -132,3 +137,23 @@ docker compose exec db psql -U {{username}} -d fables
    - Username: `POSTGRES_USER` environment variable
    - Password:  `POSTGRES_PASSWORD` environment variable
      - Toggled on 'Save Password'
+
+<br>
+
+# Set up Github Container Registry Access
+
+You need to create a Personal Access Token (PAT) since GITHUB_TOKEN
+is only available inside GitHub Actions, not for local development.
+
+Create a Personal Access Token:
+
+1. Go to GitHub Settings: - Click your profile picture → Settings → Developer settings →
+   Personal access tokens → Tokens (classic)
+2. Generate New Token:
+   - Click "Generate new token (classic)"
+   - Give it a name like "Docker Registry Access"
+   - Set expiration (recommended: 90 days or 1 year)
+3. Select Permissions:
+   - Check: read:packages (to pull images)
+   - Optionally: write:packages (if you want to push from local)
+4. Copy the Token
