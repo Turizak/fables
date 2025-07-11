@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    build: .
+    image: ghcr.io/turizak/fables:${IMAGE_TAG:-latest}
     command: uv run python manage.py runserver 0.0.0.0:8000
     volumes:
       # Mount source code but exclude virtual environments
