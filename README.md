@@ -157,3 +157,9 @@ Create a Personal Access Token:
    - Check: read:packages (to pull images)
    - Optionally: write:packages (if you want to push from local)
 4. Copy the Token
+
+Login directly (paste token when prompted for password):
+
+```
+docker login ghcr.io -u YOUR_GITHUB_USERNAME
+```
