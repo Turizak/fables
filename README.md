@@ -160,6 +160,34 @@ Create a Personal Access Token:
 
 Login directly (paste token when prompted for password):
 
-```
+```bash
+# store your PAT in the .env
 docker login ghcr.io -u YOUR_GITHUB_USERNAME
 ```
+
+<br>
+
+# Running Django Tests
+
+We have unit/integration tests for each module. You will be able to run tests within the docker container using a command like below:
+
+```bash
+# replace campaigns with whichever app you want to run tests against
+docker compose exec web uv run python manage.py test campaigns -v 2
+```
+
+Django tests use a separate test database that's
+automatically created and destroyed for each test run. Here's
+how it works:
+
+1. Test Database Creation: Django creates a temporary test
+   database
+2. Isolated Tests: Each test runs in a transaction that's
+   rolled back after completion
+3. Clean Slate: Every test method starts with a fresh, empty
+   database
+4. Test Database Destruction: After all tests finish, Django
+   destroys the test database
+
+This isolation is a feature - it ensures tests are repeatable
+and don't interfere with your application data.
