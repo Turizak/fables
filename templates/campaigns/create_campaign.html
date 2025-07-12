@@ -1,13 +1,7 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Create Campaign - Fables{% endblock %}
-
-{% block extra_js %}
+{% extends 'base.html' %} {% load static %} {% block title %}Create Campaign -
+Fables{% endblock %} {% block extra_js %}
 <script src="{% static 'js/create_campaign.js' %}"></script>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <h1>Create New Campaign</h1>
 <p>Fill in the details to create a new campaign</p>
 
@@ -26,7 +20,7 @@
         id="name"
         name="name"
         required
-        maxlength="200"
+        maxlength="100"
         placeholder="Enter campaign name"
       />
     </div>
@@ -42,9 +36,7 @@
     </div>
 
     <div>
-      <button type="submit" id="create-btn" disabled>
-        Create Campaign
-      </button>
+      <button type="submit" id="create-btn" disabled>Create Campaign</button>
       <a href="{% url 'campaigns' %}">Cancel</a>
     </div>
   </form>

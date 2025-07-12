@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
     <title>{% block title %}Fables{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
@@ -13,14 +16,7 @@
     <nav>
       <div>
         <h1><a href="{% url 'home' %}">Fables</a></h1>
-        
-        <!-- Hamburger button for mobile -->
-        <button aria-label="Toggle navigation" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        
+
         <!-- Navigation links -->
         <div>
           <ul>
@@ -31,15 +27,14 @@
       </div>
     </nav>
 
-    <main>
-      {% block content %}{% endblock %}
-    </main>
+    <main>{% block content %}{% endblock %}</main>
 
     <footer>
       <div>
-        <p>&copy; 2025 Fables | All Rights Reserved | Designed by <a target="_blank" href="https://github.com/Turizak"
-            >Turizak</a
-          ></p>
+        <p>
+          &copy; 2025 Fables | All Rights Reserved | Designed by
+          <a target="_blank" href="https://github.com/Turizak">Turizak</a>
+        </p>
       </div>
     </footer>
 
