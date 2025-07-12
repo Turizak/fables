@@ -160,7 +160,8 @@ Create a Personal Access Token:
 
 Login directly (paste token when prompted for password):
 
-```
+```bash
+# store your PAT in the .env
 docker login ghcr.io -u YOUR_GITHUB_USERNAME
 ```
 
@@ -170,8 +171,9 @@ docker login ghcr.io -u YOUR_GITHUB_USERNAME
 
 We have unit/integration tests for each module. You will be able to run tests within the docker container using a command like below:
 
-```
- docker compose exec web uv run python manage.py test campaigns -v 2
+```bash
+# replace campaigns with whichever app you want to run tests against
+docker compose exec web uv run python manage.py test campaigns -v 2
 ```
 
 Django tests use a separate test database that's
