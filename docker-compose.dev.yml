@@ -1,6 +1,6 @@
 services:
   web:
-    image: ghcr.io/turizak/fables:${IMAGE_TAG:-dev}
+    build: .
     command: sh -c "while ! python -c 'import socket; socket.create_connection((\"db\", 5432))' 2>/dev/null; do echo 'Waiting for database...'; sleep 1; done; echo 'Database is ready!'; uv run python manage.py migrate && uv run python manage.py seed_all && uv run python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
