@@ -9,8 +9,6 @@
     />
     <title>{% block title %}Fables{% endblock %}</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-    {% block extra_css %}{% endblock %}
   </head>
   <body>
     <nav>
@@ -38,7 +36,6 @@
       </div>
     </footer>
 
-    <script src="{% static 'js/base.js' %}"></script>
     {% block extra_js %}{% endblock %}
   </body>
 </html>
