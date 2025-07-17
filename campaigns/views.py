@@ -69,8 +69,13 @@ def create_campaign(request):
             return redirect("campaigns")
 
         except Exception as e:
+        except Exception as e:
+            try:
+                account_info = f"{account.username} (UUID: {account.uuid})"
+            except NameError:
+                account_info = "Unknown user"
             logger.error(
-                f"{account.username} (UUID: {account.uuid}) encountered error creating campaign '{name}': {str(e)}",
+                f"{account_info} encountered error creating campaign '{name}': {str(e)}",
                 exc_info=True,
             )
             messages.error(request, f"Error creating campaign: {str(e)}")
