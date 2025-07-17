@@ -96,12 +96,12 @@ def delete_campaign(request, uuid):
         campaign.deleted = True
         campaign.save()
 
-        account, created = Account.objects.get_or_create(
-            username="default_user", defaults={"username": "default_user"}
-        )
+        # Soft delete by setting deleted=True
+        campaign.deleted = True
+        campaign.save()
 
         logger.info(
-            f"Campaign '{campaign.name}' (UUID: {campaign.uuid}) successfully soft-deleted by {account.username} (UUID: {account.uuid})"
+            f"Campaign '{campaign.name}' (UUID: {campaign.uuid}) successfully soft-deleted"
         )
         messages.success(
             request, f"Campaign '{campaign.name}' has been deleted successfully!"
