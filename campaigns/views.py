@@ -10,12 +10,11 @@ logger = logging.getLogger(__name__)
 def campaigns(request):
     # Get campaigns from database
     campaigns = Campaign.objects.filter(deleted=False).order_by("-created_date")
-    account, created = Account.objects.get_or_create(
-        username="default_user", defaults={"username": "default_user"}
-    )
-    logger.info(
-        f"Retrieved {campaigns.count()} campaigns for display for {account.username} (UUID: {account.uuid})"
-    )
+def campaigns(request):
+    # Get campaigns from database
+    campaigns = Campaign.objects.filter(deleted=False).order_by("-created_date")
+    logger.info(f"Retrieved {campaigns.count()} campaigns for display")
+    return render(request, "campaigns/campaigns.html", {"campaigns": campaigns})
     return render(request, "campaigns/campaigns.html", {"campaigns": campaigns})
 
 
