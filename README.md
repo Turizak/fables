@@ -51,20 +51,7 @@ When running Docker containers that share volumes with your local filesystem, co
 
 ## Solution
 
-### Option 1: Standard Docker Compose (Recommended)
-
-```bash
-# Build and run with PostgreSQL database
-docker compose up --build -d
-
-# Stop services
-docker compose down
-
-# Clean up volumes
-docker compose down -v
-```
-
-### Option 2: Development-Only Container
+### Option 1: Development-Only Container
 
 ```bash
 # Run development container with selective volume mounting
@@ -72,16 +59,6 @@ docker compose -f docker-compose.dev.yml up --build -d
 
 # With file watching
 docker compose -f docker-compose.dev.yml up --build --watch
-```
-
-### Option 3: Local Development + Docker Database
-
-```bash
-# Run only PostgreSQL in Docker
-docker compose up --no-deps db
-
-# Then run Django locally
-uv run python manage.py runserver
 ```
 
 ## Key Features
