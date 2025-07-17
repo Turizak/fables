@@ -107,10 +107,11 @@ def delete_campaign(request, uuid):
             request, f"Campaign '{campaign.name}' has been deleted successfully!"
         )
     except Exception as e:
-        logger.error(
-            f"{account.username} (UUID: {account.uuid}) encountered error deleting campaign '{campaign.name}' (UUID: {campaign.uuid}): {str(e)}",
-            exc_info=True,
-        )
+     except Exception as e:
+         logger.error(
+             f"Error deleting campaign '{campaign.name}' (UUID: {campaign.uuid}): {str(e)}",
+             exc_info=True,
+         )
         messages.error(request, f"Error deleting campaign: {str(e)}")
 
     return redirect("campaigns")
