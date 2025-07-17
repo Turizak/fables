@@ -10,11 +10,7 @@ logger = logging.getLogger(__name__)
 def campaigns(request):
     # Get campaigns from database
     campaigns = Campaign.objects.filter(deleted=False).order_by("-created_date")
-def campaigns(request):
-    # Get campaigns from database
-    campaigns = Campaign.objects.filter(deleted=False).order_by("-created_date")
     logger.info(f"Retrieved {campaigns.count()} campaigns for display")
-    return render(request, "campaigns/campaigns.html", {"campaigns": campaigns})
     return render(request, "campaigns/campaigns.html", {"campaigns": campaigns})
 
 
@@ -69,7 +65,6 @@ def create_campaign(request):
             return redirect("campaigns")
 
         except Exception as e:
-        except Exception as e:
             try:
                 account_info = f"{account.username} (UUID: {account.uuid})"
             except NameError:
@@ -107,11 +102,10 @@ def delete_campaign(request, uuid):
             request, f"Campaign '{campaign.name}' has been deleted successfully!"
         )
     except Exception as e:
-     except Exception as e:
-         logger.error(
-             f"Error deleting campaign '{campaign.name}' (UUID: {campaign.uuid}): {str(e)}",
-             exc_info=True,
-         )
         messages.error(request, f"Error deleting campaign: {str(e)}")
+        logger.error(
+            f"Error deleting campaign '{campaign.name}' (UUID: {campaign.uuid}): {str(e)}",
+            exc_info=True,
+        )
 
     return redirect("campaigns")
