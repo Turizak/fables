@@ -91,10 +91,6 @@ def delete_campaign(request, uuid):
         campaign.deleted = True
         campaign.save()
 
-        # Soft delete by setting deleted=True
-        campaign.deleted = True
-        campaign.save()
-
         logger.info(
             f"Campaign '{campaign.name}' (UUID: {campaign.uuid}) successfully soft-deleted"
         )
