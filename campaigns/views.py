@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from datetime import datetime
-from .models import Campaign, Account
 import logging
+from datetime import datetime
+
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .models import Account, Campaign
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +13,7 @@ def campaigns(request):
     # Get campaigns from database
     campaigns = Campaign.objects.filter(deleted=False).order_by("-created_date")
     logger.info(f"Retrieved {campaigns.count()} campaigns for display")
-    return render(request, "campaigns/campaigns.html", {"campaigns": campaigns})
+    return render(request, "campaigns.html", {"campaigns": campaigns})
 
 
 def create_campaign(request):
@@ -27,7 +29,7 @@ def create_campaign(request):
         if not name:
             logger.warning("Campaign creation failed: name is required")
             messages.error(request, "Campaign name is required.")
-            return render(request, "campaigns/create_campaign.html")
+            return render(request, "create_campaign.html")
 
         try:
             # Get or create a default account for now (until user auth is implemented)
@@ -74,10 +76,10 @@ def create_campaign(request):
                 exc_info=True,
             )
             messages.error(request, f"Error creating campaign: {str(e)}")
-            return render(request, "campaigns/create_campaign.html")
+            return render(request, "create_campaign.html")
 
     logger.debug("Rendering create campaign form (GET request)")
-    return render(request, "campaigns/create_campaign.html")
+    return render(request, "create_campaign.html")
 
 
 def delete_campaign(request, uuid):
