@@ -14,7 +14,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
     <div class="container-fluid">
-      <h1><a class="navbar-brand" href="{% url 'home' %}">Fables</a></h1>
+      <a class="navbar-brand" href="{% url 'home' %}">Fables</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -23,11 +23,16 @@
       <!-- Navigation links -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-link"><a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'campaigns' %}">Campaigns</a></li>
+          <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'home' %} active{% endif %}"
+              aria-current="{% if request.resolver_match.url_name == 'home' %}page{% endif %}"
+              href="{% url 'home' %}">Home</a></li>
+          <li class="nav-item"> <a
+              class="nav-link{% if request.resolver_match.url_name == 'campaigns' %} active{% endif %}"
+              aria-current="{% if request.resolver_match.url_name == 'campaigns' %}page{% endif %}"
+              href="{% url 'campaigns' %}">Campaigns</a></li>
         </ul>
       </div>
-    </div class="container">
+    </div>
   </nav>
 
   <main class="container">
