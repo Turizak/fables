@@ -11,7 +11,7 @@
   {% load static %}
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
     <div class="container-fluid">
       <a class="navbar-brand me-5" href="{% url 'home' %}">Fables</a>
@@ -24,7 +24,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'home' %} active{% endif %}"
-              {% if request.resolver_match.url_name == 'home' %}aria-current="page"{% endif %}
+              aria-current="{% if request.resolver_match.url_name == 'home' %}page{% endif %}"
               href="{% url 'home' %}">Home</a></li>
           <li class="nav-item"> <a
               class="nav-link{% if request.resolver_match.url_name == 'campaigns' %} active{% endif %}"
@@ -35,15 +35,15 @@
     </div>
   </nav>
 
-  <main class="container">
+  <main class="container flex-fill">
     {% block content %}{% endblock %}
   </main>
 
-  <footer>
+  <footer class="mt-auto d-flex flex-wrap justify-content-center text-center py-3 border-top bg-dark">
     <div class="container">
-      <p>
+      <p class="text-light mb-0">
         &copy; 2025 Fables | All Rights Reserved | Designed by
-        <a target="_blank" href="https://github.com/Turizak">Turizak</a>
+        <a target="_blank" href="https://github.com/Turizak" class="text-decoration-none">Turizak</a>
       </p>
     </div>
   </footer>
