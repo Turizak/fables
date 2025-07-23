@@ -1,9 +1,9 @@
 import logging
-from datetime import datetime
 
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 
+from .forms import CreateCampaignForm
 from .models import Account, Campaign
 
 logger = logging.getLogger(__name__)
@@ -18,68 +18,57 @@ def campaigns(request):
 
 def create_campaign(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        start_date = request.POST.get("start_date")
-        end_date = request.POST.get("end_date")
+        form = CreateCampaignForm(request.POST)
 
-        logger.info(
-            f"Campaign creation attempt - name: '{name}', start_date: '{start_date}', end_date: '{end_date}'"
-        )
-
-        if not name:
-            logger.warning("Campaign creation failed: name is required")
-            messages.error(request, "Campaign name is required.")
-            return render(request, "create_campaign.html")
-
-        try:
-            # Get or create a default account for now (until user auth is implemented)
-            account, created = Account.objects.get_or_create(
-                username="default_user", defaults={"username": "default_user"}
-            )
-            logger.debug(
-                f"Account {'created' if created else 'retrieved'}: {account.username} (UUID: {account.uuid})"
-            )
-
-            # Convert date strings to date objects (if provided)
-            start_date_obj = (
-                datetime.strptime(start_date, "%Y-%m-%d").date() if start_date else None
-            )
-            end_date_obj = (
-                datetime.strptime(end_date, "%Y-%m-%d").date() if end_date else None
-            )
-
-            logger.debug(
-                f"Date conversion - start_date_obj: {start_date_obj}, end_date_obj: {end_date_obj}"
-            )
-
-            # Create the campaign
-            campaign = Campaign.objects.create(
-                name=name,
-                account_uuid=account,
-                start_date=start_date_obj,
-                end_date=end_date_obj,
-            )
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            start_date = form.cleaned_data["start_date"]
+            end_date = form.cleaned_data["end_date"]
 
             logger.info(
-                f"Campaign '{name}' created successfully with UUID: {campaign.uuid} by {account.username} (UUID: {account.uuid})"
+                f"Campaign creation attempt - name: '{name}', start_date: '{start_date}', end_date: '{end_date}'"
             )
-            messages.success(request, f"Campaign '{name}' created successfully!")
-            return redirect("campaigns")
 
-        except Exception as e:
             try:
-                account_info = f"{account.username} (UUID: {account.uuid})"
-            except NameError:
-                account_info = "Unknown user"
-            logger.error(
-                f"{account_info} encountered error creating campaign '{name}': {str(e)}",
-                exc_info=True,
-            )
-            messages.error(request, f"Error creating campaign: {str(e)}")
-            return render(request, "create_campaign.html")
+                # Get or create a default account for now (until user auth is implemented)
+                account, created = Account.objects.get_or_create(
+                    username="default_user", defaults={"username": "default_user"}
+                )
+                logger.debug(
+                    f"Account {'created' if created else 'retrieved'}: {account.username} (UUID: {account.uuid})"
+                )
 
-    logger.debug("Rendering create campaign form (GET request)")
-    return render(request, "create_campaign.html")
+                # Create the campaign
+                campaign = Campaign.objects.create(
+                    name=name,
+                    account_uuid=account,
+                    start_date=start_date,
+                    end_date=end_date,
+                )
+
+                logger.info(
+                    f"Campaign '{name}' created successfully with UUID: {campaign.uuid} by {account.username} (UUID: {account.uuid})"
+                )
+                messages.success(request, f"Campaign '{name}' created successfully!")
+                return redirect("campaigns")
+
+            except Exception as e:
+                try:
+                    account_info = f"{account.username} (UUID: {account.uuid})"
+                except NameError:
+                    account_info = "Unknown user"
+                logger.error(
+                    f"{account_info} encountered error creating campaign '{name}': {str(e)}",
+                    exc_info=True,
+                )
+                messages.error(request, f"Error creating campaign: {str(e)}")
+        else:
+            logger.warning(f"Form validation failed: {form.errors}")
+    else:
+        form = CreateCampaignForm()
+        logger.debug("Rendering create campaign form (GET request)")
+
+    return render(request, "create_campaign.html", {"form": form})
 
 
 def delete_campaign(request, uuid):
