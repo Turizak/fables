@@ -26,10 +26,15 @@
           <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'home' %} active{% endif %}"
               aria-current="{% if request.resolver_match.url_name == 'home' %}page{% endif %}"
               href="{% url 'home' %}">Home</a></li>
-          <li class="nav-item"> <a
-              class="nav-link{% if request.resolver_match.url_name == 'campaigns' %} active{% endif %}"
+          <li class="nav-item dropdown"> <a
+              class="nav-link{% if request.resolver_match.url_name == 'campaigns' %} active{% endif %} dropdown-toggle"
               aria-current="{% if request.resolver_match.url_name == 'campaigns' %}page{% endif %}"
-              href="{% url 'campaigns' %}">Campaigns</a></li>
+              href="{% url 'campaigns' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">Campaigns</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="{% url 'create_campaign' %}">Create New Campaign</a></li>
+              <li><a class="dropdown-item" href="{% url 'campaigns' %}">View Campaigns</a></li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
