@@ -5,20 +5,17 @@
 
 {% block content %}
 <div>
-  <div>
-    <h1>Campaigns</h1>
-    <p>View and Manage Campaigns</p>
-  </div>
-  <a href="{% url 'create_campaign' %}">Create New Campaign</a>
+  <h1>Campaigns</h1>
+  <p>View and Manage Campaigns</p>
 </div>
-
 <div>
-  <div>
+  <a href="{% url 'create_campaign' %}">Create New Campaign</a>
+  <div class="py-2">
     <h2>Your Campaigns</h2>
   </div>
   {% if campaigns %}
-  <table>
-    <thead>
+  <table class="table table-bordered">
+    <thead class="table-dark">
       <tr>
         <th>Name</th>
         <th>Start Date</th>
@@ -37,20 +34,18 @@
         </td>
         <td>
           {% if campaign.start_date and campaign.end_date %}
-            {{ campaign.end_date|date:"M d, Y" }}
+          {{ campaign.end_date|date:"M d, Y" }}
           {% elif campaign.start_date and not campaign.end_date %}
-            Ongoing
+          Ongoing
           {% else %}
-            Not Set
+          Not Set
           {% endif %}
         </td>
         <td>{{ campaign.last_updated|date:"M d, Y H:i" }}</td>
         <td>{{ campaign.created_date|date:"M d, Y H:i" }}</td>
         <td>
-          <a
-            href="{% url 'delete_campaign' campaign.uuid %}"
-            onclick="return confirm('Are you sure you want to delete this campaign?');"
-          >
+          <a href="{% url 'delete_campaign' campaign.uuid %}"
+            onclick="return confirm('Are you sure you want to delete this campaign?');">
             <span> delete </span>
           </a>
         </td>
