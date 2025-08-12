@@ -11,7 +11,6 @@ class CreateCampaignForm(forms.Form):
                 "id": "name",
                 "placeholder": "Enter campaign name",
                 "class": "form-control",
-                "required": True,
             }
         ),
         label="Campaign Name",
