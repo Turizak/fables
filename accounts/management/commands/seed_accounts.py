@@ -72,9 +72,19 @@ class Command(BaseCommand):
             else:
                 username = f"user_{i + 1}"
 
-            # Check if username already exists to avoid duplicates
-            if not Account.objects.filter(username=username).exists():
-                Account.objects.create(username=username)
+            # Generate email from username
+            email = f"{username}@example.com"
+
+            # Check if username or email already exists to avoid duplicates
+            if (
+                not Account.objects.filter(username=username).exists()
+                and not Account.objects.filter(email=email).exists()
+            ):
+                Account.objects.create_user(
+                    email=email,
+                    username=username,
+                    password="defaultpassword123",  # You may want to make this configurable
+                )
                 created_count += 1
                 self.stdout.write(f"Created account: {username}")
             else:
