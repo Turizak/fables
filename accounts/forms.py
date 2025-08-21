@@ -28,3 +28,7 @@ class CreateAccountForm(forms.Form):
         max_length=25,
         help_text="Password must be at least 8 characters",
     )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
