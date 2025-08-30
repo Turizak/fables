@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class CreateAccountForm(forms.Form):
@@ -32,3 +33,26 @@ class CreateAccountForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         return cleaned_data
+
+
+class EmailAuthenticationForm(AuthenticationForm):
+    username = forms.EmailField(
+        label="Email",
+        widget=forms.EmailInput(
+            attrs={
+                "id": "email",
+                "class": "form-control",
+            }
+        ),
+    )
+
+    password = forms.CharField(
+        label="Password",
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                "id": "password",
+                "class": "form-control",
+            }
+        ),
+    )
