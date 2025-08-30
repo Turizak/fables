@@ -15,6 +15,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
     <div class="container-fluid">
       <a class="navbar-brand me-5" href="{% url 'home' %}">Fables</a>
+      {% if user.is_authenticated %}
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,14 +28,31 @@
               aria-current="{% if request.resolver_match.url_name == 'home' %}page{% endif %}"
               href="{% url 'home' %}">Home</a></li>
           <li class="nav-item dropdown"> <a
-              class="nav-link{% if request.resolver_match.url_name == 'campaigns' %} active{% endif %} dropdown-toggle"
-              aria-current="{% if request.resolver_match.url_name == 'campaigns' %}page{% endif %}"
-              href="{% url 'campaigns' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">Campaigns</a>
+              class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'campaigns' %} active{% endif %}"
+              id="navbarDropdownMenuLink"
+              aria-current="{% if request.resolver_match.url_name == 'campaigns' %}page{% endif %}" href="#"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">Campaigns</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="{% url 'create_campaign' %}">Create New Campaign</a></li>
               <li><a class="dropdown-item" href="{% url 'campaigns' %}">View Campaigns</a></li>
             </ul>
           </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <span class="navbar-text text-warning me-3">
+              {{ user.username }}
+            </span>
+          </li>
+          <li class="nav-item">
+            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-link nav-link p-0 border-0 bg-transparent">
+                Logout
+              </button>
+            </form>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </div>
