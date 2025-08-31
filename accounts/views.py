@@ -1,9 +1,10 @@
 import logging
 
 from django.contrib import messages
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect, render
 
-from .forms import CreateAccountForm
+from .forms import CreateAccountForm, EmailAuthenticationForm
 from .models import Account
 
 logger = logging.getLogger(__name__)
@@ -43,3 +44,13 @@ def create_account(request):
         logger.debug("Rendering create account form (GET request)")
 
     return render(request, "create_account.html", {"form": form})
+
+
+class CustomLoginView(LoginView):
+    template_name = "login.html"
+    authentication_form = EmailAuthenticationForm
+    redirect_authenticated_user = True
+
+
+class CustomLogoutView(LogoutView):
+    next_page = "/"
