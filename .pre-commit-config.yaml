@@ -54,7 +54,9 @@ repos:
     hooks:
       - id: ruff-check
         args: [--fix]
+        exclude: vulture_allowlist\.py$
       - id: ruff-format
+        exclude: vulture_allowlist\.py$
 
   # Type checking
   - repo: https://github.com/pre-commit/mirrors-mypy
