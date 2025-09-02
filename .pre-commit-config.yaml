@@ -1,10 +1,139 @@
+exclude: |
+  (?x)^(
+    .*/migrations/.*|
+    .*/static/.*|
+    .*/media/.*|
+    .*/node_modules/.*|
+    .*/venv/.*|
+    .*/\.venv/.*|
+    .*\.min\.(js|css)$|
+    vulture_allowlist\.py$
+  )$
+
 repos:
+  # Basic file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-xml
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-docstring-first
+      - id: debug-statements
+      - id: check-executables-have-shebangs
+
+  # Secret detection
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: |
+          (?x)^(
+            .*/migrations/.*|
+            .*\.lock$|
+            .*\.min\.(js|css)$|
+            package-lock\.json$
+          )$
+
+  # Import sorting
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "django", "--multi-line", "3", "--trailing-comma", "--force-grid-wrap", "0", "--combine-as", "--line-width", "88"]
+
+  # Code formatting and linting
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    # Ruff version.
     rev: v0.12.1
     hooks:
-      # Run the linter.
       - id: ruff-check
         args: [--fix]
-      # Run the formatter.
       - id: ruff-format
+
+  # Type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [django-stubs, types-requests, psycopg2-binary]
+        args: [--config-file=mypy.ini, --ignore-missing-imports]
+
+  # Security analysis
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        additional_dependencies: [pbr]
+        args: ['-r', '.', '-f', 'json', '--skip', 'B101,B601']
+        exclude: |
+          (?x)^(
+            .*/migrations/.*|
+            .*/tests/.*|
+            .*/test_.*\.py$|
+            .*_test\.py$
+          )$
+
+  # Django-specific checks
+  - repo: https://github.com/adamchainz/django-upgrade
+    rev: 1.15.0
+    hooks:
+      - id: django-upgrade
+        args: [--target-version, "5.0"]
+
+  # Template linting for Django
+  - repo: https://github.com/Riverside-Healthcare/djlint
+    rev: v1.34.1
+    hooks:
+      - id: djlint-reformat-django
+      - id: djlint-django
+
+  # Code complexity and quality
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - flake8-bugbear
+          - flake8-comprehensions
+          - flake8-django
+          - flake8-pie
+          - flake8-simplify
+        args: [--max-complexity=10, --max-line-length=88, --extend-ignore, E203,W503]
+
+  # Dead code detection
+  - repo: https://github.com/jendrikseipp/vulture
+    rev: v2.10
+    hooks:
+      - id: vulture
+        args: [--min-confidence, '80', --sort-by-size, vulture_allowlist.py]
+
+  # README and documentation checks
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: rst-backticks
+      - id: rst-directive-colons
+      - id: rst-inline-touching-normal
+
+  # Markdown linting (Python-based alternative)
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.17
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm
+          - mdformat-black
+        args: [--wrap=100]
+
+  # Python docstring formatting
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+        args: [--convention=google, --add-ignore=D100,D104,D105,D107]
