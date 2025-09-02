@@ -9,3 +9,11 @@ dependencies = [
     "psycopg2-binary>=2.9.0",
     "ruff>=0.12.0",
 ]
+
+[tool.ruff]
+exclude = [
+    "vulture_allowlist.py",
+    "migrations",
+    ".venv",
+    "venv",
+]
